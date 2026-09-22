@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jar index{% endblock %}
+
+{% block body %}
+    <h1>Jar index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Zawartość</th>
+                <th>Utworzono</th>
+                <th>Status</th>
+                <th>Lokalizacja</th>
+                <th>Typ</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jar in jars %}
+            <tr>
+                <td>{{ jar.id }}</td>
+                <td>{{ jar.content }}</td>
+                <td>{{ jar.createdAt ? jar.createdAt|date('Y-m-d') : '' }}</td>
+                <td>{{ jar.status }}</td>
+                <td>{{ jar.location }}</td>
+                <td>{{ jar.type }}</td>
+                <td>
+                    <a href="{{ path('app_jar_crud_show', {'id': jar.id}) }}">Pokaż</a>
+                    <a href="{{ path('app_jar_crud_edit', {'id': jar.id}) }}">Edytuj</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_jar_crud_new') }}" class="btn btn-primary">Dodaj słoik</a>
+    <a href="{{ path('app_dashboard') }}" class="btn btn-secondary">Powrót na Stronę Główną</a>
+
+    {% set flash_titles = app.flashes('success_modal_title') %}
+    {% set flash_bodies = app.flashes('success_modal_body') %}
+
+    {% if flash_titles %}
+        <div class="modal fade" id="successJarModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content" style="border: 2px solid #27ae60;">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title">{{ flash_titles[0]  }}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Zapisano pomyślnie w bazie.</h4>
+                        <p class="lead">{{ flash_bodies[0] }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Rozumiem, kontynuuj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var myModal = new bootstrap.Modal(document.getElementById('successJarModal'));
+                myModal.show();
+            });
+        </script>
+    {% endif %}
+
+{% endblock %}

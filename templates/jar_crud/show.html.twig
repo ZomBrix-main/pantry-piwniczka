@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jar{% endblock %}
+
+{% block body %}
+    <h1>Jar</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ jar.id }}</td>
+            </tr>
+            <tr>
+                <th>Zawartość</th>
+                <td>{{ jar.content }}</td>
+            </tr>
+            <tr>
+                <th>Utworzono</th>
+                <td>{{ jar.createdAt ? jar.createdAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ jar.status }}</td>
+            </tr>
+            <tr>
+                <th>Lokalizacja</th>
+                <td>{{ jar.location }}</td>
+            </tr>
+            <tr>
+                <th>Typ</th>
+                <td>{{ jar.type }}</td>
+            </tr>
+            <tr>
+                <th>Historia Zdarzeń (Logi)</th>
+                <td>
+                    {% for log in jar.auditLogs %}
+                        <span class="badge bg-secondary mb-1">
+                [{{ log.actionType|upper }}] z dnia {{ log.createdAt|date('Y-m-d H:i') }} - {{ log.description }}
+            </span><br>
+                    {% else %}
+                        <em class="text-muted">Brak logów dla tego słoika</em>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_jar_crud_index') }}" class="btn btn-primary">Powrót do listy</a>
+
+    <a href="{{ path('app_jar_crud_edit', {'id': jar.id}) }}" class="btn btn-primary">Edytuj</a>
+
+    <a href="{{ path('app_dashboard') }}" class="btn btn-secondary">Powrót na Stronę Główną</a>
+
+    {{ include('jar_crud/_delete_form.html.twig') }}
+{% endblock %}

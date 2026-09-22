@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EmptyJarStat{% endblock %}
+
+{% block body %}
+    <h1>Create new EmptyJarStat</h1>
+
+    {{ include('empty_jar_stat_crud/_form.html.twig') }}
+
+    <a href="{{ path('app_empty_jar_stat_crud_index') }}">back to list</a>
+{% endblock %}

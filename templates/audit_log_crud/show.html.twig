@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AuditLog{% endblock %}
+
+{% block body %}
+    <h1>AuditLog</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ audit_log.id }}</td>
+            </tr>
+            <tr>
+                <th>Opis</th>
+                <td>{{ audit_log.description }}</td>
+            </tr>
+            <tr>
+                <th>Utworzono</th>
+                <td>{{ audit_log.createdAt ? audit_log.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Akcja</th>
+                <td>{{ audit_log.actionType }}</td>
+            </tr>
+            <tr>
+                <th>Słoiki, których wpis dotyczy</th>
+                <td>
+                    {% for jar in audit_log.jars %}
+                        <span class="badge bg-success mb-1">
+                [{{ jar.id }}] {{ jar.content }} ({{ jar.status|upper }})
+            </span><br>
+                    {% else %}
+                        <em class="text-muted">Brak słoików, których ten wpis dotyczy</em>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_audit_log_crud_index') }}" class="btn btn-primary">Powrót do listy</a>
+
+    <a href="{{ path('app_audit_log_crud_edit', {'id': audit_log.id}) }}" class="btn btn-primary">Edytuj</a>
+
+    <a href="{{ path('app_dashboard') }}" class="btn btn-secondary">Powrót na Stronę Główną</a>
+
+    {{ include('audit_log_crud/_delete_form.html.twig') }}
+{% endblock %}

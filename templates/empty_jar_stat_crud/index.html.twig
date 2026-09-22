@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Puste Słoiki{% endblock %}
+
+{% block body %}
+    <h1>Puste słoiki</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Typ/Rozmiar</th>
+                <th>Ilość</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for empty_jar_stat in empty_jar_stats %}
+            <tr>
+                <td>{{ empty_jar_stat.id }}</td>
+                <td>{{ empty_jar_stat.type }}</td>
+                <td>{{ empty_jar_stat.quantity }}</td>
+                <td>
+                    <a href="{{ path('app_empty_jar_stat_crud_show', {'id': empty_jar_stat.id}) }}">show</a>
+                    <a href="{{ path('app_empty_jar_stat_crud_edit', {'id': empty_jar_stat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Brak pustych słoików</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_empty_jar_stat_crud_new') }}" class="btn btn-primary">Dodaj puste słoiki</a>
+    <a href="{{ path('app_dashboard') }}" class="btn btn-secondary">Powrót na Stronę Główną</a>
+{% endblock %}
