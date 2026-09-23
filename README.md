@@ -23,7 +23,7 @@ Z uwagi na specyfikę środowiska (piwnica, telefony bez zasięgu, praca z pliki
 1. Sklonuj repozytorium i przejdź do folderu:
 ```bash
 git clone <adres-repozytorium>
-cd symfony-first
+cd pantry-piwniczka
 ```
 
 2. Zainstaluj niezbędne pakiety PHP:
